@@ -1,0 +1,29 @@
+{
+  "info": {"name":"StayEasy API","schema":"https://schema.getpostman.com/json/collection/v2.1.0/collection.json"},
+  "variable":[{"key":"baseUrl","value":"http://localhost:5000/api"},{"key":"accessToken","value":""},{"key":"hotelId","value":""},{"key":"roomId","value":""}],
+  "item":[
+    {"name":"Health","request":{"method":"GET","url":"{{baseUrl}}/health"}},
+    {"name":"Auth","item":[
+      {"name":"Register guest","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"name\":\"Test Guest\",\"email\":\"newguest@example.com\",\"password\":\"Password123\"}"},"url":"{{baseUrl}}/auth/register"}},
+      {"name":"Login","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"email\":\"guest@stayeasy.test\",\"password\":\"Guest123!\"}"},"url":"{{baseUrl}}/auth/login"}},
+      {"name":"Current user","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{accessToken}}"}],"url":"{{baseUrl}}/auth/me"}},
+      {"name":"Refresh","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"refreshToken\":\"PASTE_REFRESH_TOKEN\"}"},"url":"{{baseUrl}}/auth/refresh"}}
+    ]},
+    {"name":"Hotels","item":[
+      {"name":"Search hotels","request":{"method":"GET","url":"{{baseUrl}}/hotels?city=Gurugram"}},
+      {"name":"Hotel details","request":{"method":"GET","url":"{{baseUrl}}/hotels/{{hotelId}}"}},
+      {"name":"Create hotel (manager/admin)","request":{"method":"POST","header":[{"key":"Authorization","value":"Bearer {{accessToken}}"},{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"name\":\"Sample Hotel\",\"description\":\"A lovely hotel\",\"city\":\"Delhi\",\"address\":\"Connaught Place\",\"amenities\":[\"Wi-Fi\"],\"imageUrl\":\"https://example.com/hotel.jpg\"}"},"url":"{{baseUrl}}/hotels"}}
+    ]},
+    {"name":"Rooms","item":[
+      {"name":"Add room type","request":{"method":"POST","header":[{"key":"Authorization","value":"Bearer {{accessToken}}"},{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"name\":\"Deluxe\",\"description\":\"King bed\",\"pricePerNight\":3500,\"capacity\":2,\"totalRooms\":5,\"amenities\":[\"Wi-Fi\"]}"},"url":"{{baseUrl}}/rooms/hotel/{{hotelId}}"}}
+    ]},
+    {"name":"Bookings","item":[
+      {"name":"Create booking (guest)","request":{"method":"POST","header":[{"key":"Authorization","value":"Bearer {{accessToken}}"},{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"roomId\":\"{{roomId}}\",\"checkIn\":\"2027-01-10\",\"checkOut\":\"2027-01-12\",\"guests\":2,\"roomsBooked\":1}"},"url":"{{baseUrl}}/bookings"}},
+      {"name":"My bookings","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{accessToken}}"}],"url":"{{baseUrl}}/bookings/my"}}
+    ]},
+    {"name":"Reports","item":[
+      {"name":"Manager report","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{accessToken}}"}],"url":"{{baseUrl}}/reports/manager"}},
+      {"name":"Admin report","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{accessToken}}"}],"url":"{{baseUrl}}/reports/admin"}}
+    ]}
+  ]
+}

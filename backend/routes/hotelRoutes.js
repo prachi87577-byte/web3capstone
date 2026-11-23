@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import { listHotels, myHotels, getHotel, createHotel, updateHotel, deleteHotel } from '../controllers/hotelController.js';
+import { protect, allowRoles } from '../middleware/authMiddleware.js';
+import { asyncHandler } from '../middleware/asyncHandler.js';
+const r = Router();
+r.get('/', asyncHandler(listHotels));
+r.get('/mine', protect, allowRoles('provider','admin'), asyncHandler(myHotels));
+r.get('/:id', asyncHandler(getHotel));
+r.post('/', protect, allowRoles('provider','admin'), asyncHandler(createHotel));
+r.patch('/:id', protect, allowRoles('provider','admin'), asyncHandler(updateHotel));
+r.delete('/:id', protect, allowRoles('provider','admin'), asyncHandler(deleteHotel));
+export default r;

@@ -1,0 +1,11 @@
+import { Router } from 'express';
+import { register, login, refresh, logout, me } from '../controllers/authController.js';
+import { protect } from '../middleware/authMiddleware.js';
+import { asyncHandler } from '../middleware/asyncHandler.js';
+const r = Router();
+r.post('/register', asyncHandler(register));
+r.post('/login', asyncHandler(login));
+r.post('/refresh', asyncHandler(refresh));
+r.post('/logout', protect, asyncHandler(logout));
+r.get('/me', protect, asyncHandler(me));
+export default r;

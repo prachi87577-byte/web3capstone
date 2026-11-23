@@ -1,0 +1,17 @@
+{
+  "name": "stayeasy",
+  "version": "1.0.0",
+  "description": "A full-stack hotel booking application built for project topic 18 in the supplied MERN capstone list.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

@@ -1,0 +1,11 @@
+import { Router } from 'express';
+import { createBooking, myBookings, getBooking, cancelBooking, updateBookingStatus } from '../controllers/bookingController.js';
+import { protect, allowRoles } from '../middleware/authMiddleware.js';
+import { asyncHandler } from '../middleware/asyncHandler.js';
+const r = Router();
+r.post('/', protect, allowRoles('customer'), asyncHandler(createBooking));
+r.get('/my', protect, allowRoles('customer'), asyncHandler(myBookings));
+r.patch('/admin/:id', protect, allowRoles('admin'), asyncHandler(updateBookingStatus));
+r.get('/:id', protect, asyncHandler(getBooking));
+r.patch('/:id/cancel', protect, asyncHandler(cancelBooking));
+export default r;
